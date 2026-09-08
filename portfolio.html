@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaseen Manzoor Shaikh — Aerospace Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue-deep:#0d2140;
+    --blue-mid:#12315c;
+    --paper:#eef0e6;
+    --paper-line:#d8dccb;
+    --ink:#f2efe4;
+    --ink-dim:#a9bad6;
+    --ink-dark:#0f1b2c;
+    --amber:#e2a33f;
+    --grid-line:rgba(242,239,228,0.09);
+    --grid-line-strong:rgba(242,239,228,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink-dark);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:16px;
+    line-height:1.5;
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+
+  /* corner registration marks, reused on dark sections */
+  .frame{position:relative;}
+  .frame::before,.frame::after,
+  .frame .fc-tl,.frame .fc-br{position:absolute; width:22px; height:22px; pointer-events:none;}
+  .frame::before{content:""; top:18px; left:18px; border-top:1.5px solid var(--ink-dim); border-left:1.5px solid var(--ink-dim);}
+  .frame::after{content:""; top:18px; right:18px; border-top:1.5px solid var(--ink-dim); border-right:1.5px solid var(--ink-dim);}
+  .frame .fc-tl{bottom:18px; left:18px; border-bottom:1.5px solid var(--ink-dim); border-left:1.5px solid var(--ink-dim);}
+  .frame .fc-br{bottom:18px; right:18px; border-bottom:1.5px solid var(--ink-dim); border-right:1.5px solid var(--ink-dim);}
+
+  /* ===== NAV ===== */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(13,33,64,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--grid-line-strong);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  nav .navname{color:var(--ink); font-size:14px; letter-spacing:0.02em;}
+  nav .navname span{color:var(--ink-dim);}
+  nav ul{list-style:none; display:flex; gap:22px; margin:0; padding:0;}
+  nav a{color:var(--ink-dim); text-decoration:none; font-family:'IBM Plex Mono',monospace; font-size:12.5px; transition:color .15s ease;}
+  nav a:hover, nav a:focus-visible{color:var(--amber);}
+  nav a:focus-visible{outline:1px solid var(--amber); outline-offset:4px;}
+  @media (max-width:640px){ nav ul{gap:14px;} nav a{font-size:11px;} }
+
+  /* ===== HERO ===== */
+  .hero{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/40px 40px,
+      radial-gradient(ellipse at 30% 20%, var(--blue-mid), var(--blue-deep) 65%);
+    color:var(--ink);
+    padding:110px 0 90px;
+    min-height:88vh;
+    display:flex; align-items:center;
+  }
+  .hero .wrap{width:100%;}
+  .hero-kicker{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--amber);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+    opacity:0; animation:fadeUp .7s ease forwards;
+  }
+  .hero-kicker::before{content:""; width:26px; height:1px; background:var(--amber); display:inline-block;}
+  .hero h1{
+    font-size:clamp(40px, 7.4vw, 92px);
+    line-height:0.98;
+    margin:0 0 20px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    opacity:0; animation:fadeUp .8s ease .12s forwards;
+  }
+  .hero .role{
+    font-size:clamp(17px,2.4vw,23px);
+    color:var(--ink-dim);
+    max-width:560px;
+    margin:0 0 34px;
+    font-weight:400;
+    opacity:0; animation:fadeUp .8s ease .24s forwards;
+  }
+  .hero .role strong{color:var(--ink); font-weight:500;}
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:28px;
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-dim);
+    border-top:1px solid var(--grid-line-strong);
+    padding-top:22px; margin-top:8px; max-width:640px;
+    opacity:0; animation:fadeUp .8s ease .36s forwards;
+  }
+  .hero-meta div span{display:block; color:var(--ink); font-size:14px; margin-top:4px;}
+  .hero-links{display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; opacity:0; animation:fadeUp .8s ease .46s forwards;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; text-decoration:none;
+    padding:11px 20px; border:1px solid var(--ink-dim); color:var(--ink);
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .btn:hover, .btn:focus-visible{border-color:var(--amber); color:var(--amber);}
+  .btn.solid{background:var(--amber); border-color:var(--amber); color:var(--blue-deep); font-weight:500;}
+  .btn.solid:hover, .btn.solid:focus-visible{background:transparent; color:var(--amber);}
+  .btn:focus-visible{outline:1px solid var(--amber); outline-offset:3px;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ===== SECTION shell ===== */
+  section{padding:86px 0;}
+  section.alt{background:#e6e9dc;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:44px;}
+  .sec-num{font-family:'IBM Plex Mono',monospace; color:var(--amber); font-size:13px;}
+  .sec-title{font-size:clamp(26px,3.6vw,36px); font-weight:600; margin:0;}
+  .sec-line{flex:1; height:1px; background:var(--paper-line); margin-left:6px;}
+  .lede{max-width:640px; color:#3a4658; font-size:16.5px; margin:-24px 0 44px;}
+
+  /* ===== ABOUT ===== */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:50px;}
+  .about-grid p{font-size:17px; color:#26344a; max-width:52ch;}
+  .spec-box{border:1px solid var(--paper-line); padding:22px 24px; background:#f4f5ee;}
+  .spec-box h3{font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500; color:#6b7a55; margin:0 0 14px; text-transform:lowercase;}
+  .spec-list{list-style:none; margin:0; padding:0; font-size:14px;}
+  .spec-list li{display:flex; justify-content:space-between; padding:7px 0; border-top:1px dashed var(--paper-line);}
+  .spec-list li:first-child{border-top:none;}
+  .spec-list li span:last-child{font-family:'IBM Plex Mono',monospace; color:#4c5a3f;}
+  @media (max-width:800px){.about-grid{grid-template-columns:1fr;}}
+
+  /* ===== TIMELINE (experience + leadership) ===== */
+  .log{border-left:1.5px solid var(--paper-line); margin-left:6px;}
+  .log-item{position:relative; padding:0 0 40px 30px;}
+  .log-item:last-child{padding-bottom:4px;}
+  .log-item::before{content:""; position:absolute; left:-6.5px; top:5px; width:11px; height:11px; background:var(--paper); border:2px solid var(--amber); border-radius:50%;}
+  .log-date{font-family:'IBM Plex Mono',monospace; font-size:12px; color:#7a8a63; margin-bottom:6px; display:block;}
+  .log-role{font-size:19px; font-weight:600; margin:0 0 2px;}
+  .log-org{font-size:14px; color:#5b6a4f; margin:0 0 12px;}
+  .log-item ul{margin:0; padding-left:18px; color:#2c3a2c;}
+  .log-item li{margin-bottom:6px; font-size:15px;}
+
+  /* ===== PLACEMENT ===== */
+  .pl-top{display:grid; grid-template-columns:1.2fr 1fr; gap:50px; margin-bottom:50px;}
+  .pl-top p{font-size:16.5px; color:#26344a; max-width:56ch;}
+  .pl-facts{list-style:none; margin:0; padding:0; font-size:14px;}
+  .pl-facts li{display:flex; justify-content:space-between; gap:16px; padding:9px 0; border-top:1px dashed var(--paper-line);}
+  .pl-facts li:first-child{border-top:none;}
+  .pl-facts li span:first-child{color:#6b7a55; font-family:'IBM Plex Mono',monospace; font-size:11.5px;}
+  .pl-facts li span:last-child{text-align:right; max-width:60%;}
+  .case-study{border:1px solid var(--paper-line); background:#f4f5ee; padding:32px 34px; margin-bottom:36px;}
+  .case-study .cs-tag{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#7a8a63; margin-bottom:8px;}
+  .case-study h3{margin:0 0 14px; font-size:22px; font-weight:600;}
+  .case-study p{font-size:15px; color:#2c3a2c; max-width:70ch; margin:0 0 16px;}
+  .case-study ul{margin:0; padding-left:18px; color:#2c3a2c;}
+  .case-study li{font-size:14.5px; margin-bottom:8px;}
+  .stat-strip{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--paper-line); border:1px solid var(--paper-line);}
+  .stat-cell{background:#f4f5ee; padding:22px 22px 20px;}
+  .stat-num{font-family:'IBM Plex Mono',monospace; font-size:26px; color:var(--amber); display:block; margin-bottom:6px;}
+  .stat-label{font-size:13.5px; color:#2c3a2c; margin:0 0 4px; font-weight:600;}
+  .stat-desc{font-size:12.5px; color:#5b6a4f; margin:0;}
+  @media (max-width:800px){.pl-top{grid-template-columns:1fr;}}
+  @media (max-width:700px){.stat-strip{grid-template-columns:1fr;}}
+
+  /* ===== PROJECTS ===== */
+  .proj-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--paper-line); border:1px solid var(--paper-line);}
+  .proj-card{background:#f4f5ee; padding:26px 26px 24px;}
+  .proj-head{display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--paper-line); padding-bottom:12px; margin-bottom:14px;}
+  .proj-head h3{margin:0; font-size:19px; font-weight:600;}
+  .proj-head .pdate{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#7a8a63; white-space:nowrap; margin-left:12px;}
+  .proj-org{font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7a55; margin:0 0 14px;}
+  .proj-card ul{margin:0; padding-left:18px; color:#2c3a2c;}
+  .proj-card li{font-size:14.5px; margin-bottom:7px;}
+  @media (max-width:760px){.proj-grid{grid-template-columns:1fr;}}
+
+  /* ===== SKILLS ===== */
+  .skill-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:34px 40px;}
+  .skill-group h3{font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500; color:#6b7a55; margin:0 0 12px; text-transform:lowercase;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{border:1px solid var(--paper-line); padding:6px 11px; font-size:13px; color:#26344a; background:#f4f5ee;}
+  @media (max-width:760px){.skill-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:480px){.skill-grid{grid-template-columns:1fr;}}
+
+  /* ===== EDUCATION ===== */
+  .edu-item{border-top:1px solid var(--paper-line); padding:26px 0;}
+  .edu-item:last-child{border-bottom:1px solid var(--paper-line);}
+  .edu-top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; margin-bottom:8px;}
+  .edu-top h3{margin:0; font-size:20px; font-weight:600;}
+  .edu-date{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#7a8a63;}
+  .edu-item p.deg{margin:0 0 10px; color:#5b6a4f; font-size:14.5px;}
+  .edu-item ul{margin:0; padding-left:18px; color:#2c3a2c;}
+  .edu-item li{font-size:14.5px; margin-bottom:6px;}
+
+  /* ===== INTERESTS ===== */
+  .interest-row{display:flex; flex-wrap:wrap; gap:12px;}
+  .interest-row span{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#4c5a3f; border:1px dashed var(--paper-line); padding:8px 14px;}
+
+  /* ===== FOOTER / TITLE BLOCK ===== */
+  footer{background:var(--blue-deep); color:var(--ink); padding:70px 0 0;}
+  .tb-top{padding-bottom:50px;}
+  .tb-top h2{font-size:clamp(26px,4vw,40px); margin:0 0 14px; font-weight:600;}
+  .tb-top p{color:var(--ink-dim); max-width:46ch; margin:0 0 30px; font-size:15.5px;}
+  .titleblock{border:1px solid var(--grid-line-strong); border-bottom:none; display:grid; grid-template-columns:repeat(4,1fr);}
+  .tb-cell{border-right:1px solid var(--grid-line-strong); border-bottom:1px solid var(--grid-line-strong); padding:16px 18px;}
+  .tb-cell:nth-child(4n){border-right:none;}
+  .tb-label{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-dim); margin-bottom:6px;}
+  .tb-value{font-size:14px; color:var(--ink);}
+  .tb-value a{text-decoration:none; border-bottom:1px solid var(--grid-line-strong);}
+  .tb-value a:hover, .tb-value a:focus-visible{border-color:var(--amber); color:var(--amber);}
+  @media (max-width:700px){.titleblock{grid-template-columns:repeat(2,1fr);} .tb-cell:nth-child(4n){border-right:1px solid var(--grid-line-strong);} .tb-cell:nth-child(2n){border-right:none;}}
+  .bottombar{margin-top:0; padding:18px 0; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-dim); border-top:1px solid var(--grid-line-strong);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="navname">YMS <span>/ aerospace engineering</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#placement">Placement</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero frame">
+  <span class="fc-tl"></span><span class="fc-br"></span>
+  <div class="wrap">
+    <div class="hero-kicker mono">sheffield, united kingdom</div>
+    <h1>Yaseen Manzoor<br>Shaikh</h1>
+    <p class="role">Aerospace Engineering student at the <strong>University of Sheffield</strong>, working across structures, aerodynamics and UAV design.</p>
+    <div class="hero-meta">
+      <div>degree<span>BEng Aerospace Eng.</span></div>
+      <div>graduating<span>June 2026</span></div>
+      <div>focus<span>Structures &amp; UAV design</span></div>
+      <div>languages<span>English, Urdu, French</span></div>
+    </div>
+    <div class="hero-links">
+      <a class="btn solid" href="mailto:yshaikh1@sheffield.ac.uk">Email me</a>
+      <a class="btn" href="https://www.linkedin.com/in/yaseen-manzoor-shaikh/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="#experience">View experience</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num mono">01</span><h2 class="sec-title">About</h2><span class="sec-line"></span></div>
+    <div class="about-grid">
+      <p>
+        I'm an Aerospace Engineering student at the University of Sheffield, currently in my third year.
+        My work so far has centred on structural design for UAVs — fuselage and landing gear development,
+        weight optimisation, and validating designs through computational simulation. Outside of coursework,
+        I've taken on leadership roles across university societies, managing budgets, running events and
+        representing my department to prospective students.
+      </p>
+      <div class="spec-box">
+        <h3>quick reference</h3>
+        <ul class="spec-list">
+          <li><span>Location</span><span>Sheffield, UK</span></li>
+          <li><span>Email</span><span>yshaikh1@sheffield.ac.uk</span></li>
+          <li><span>Phone</span><span>+44 7470 243129</span></li>
+          <li><span>Scholarship</span><span>15% — Foundation Yr.</span></li>
+          <li><span>CFD project</span><span>−12% drag</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num mono">02</span><h2 class="sec-title">Experience</h2><span class="sec-line"></span></div>
+    <div class="log">
+
+      <div class="log-item">
+        <span class="log-date mono">Jun 2024 — Present</span>
+        <h3 class="log-role">President</h3>
+        <p class="log-org">British Asian Society, Sheffield Students' Union</p>
+        <ul>
+          <li>Led initiatives to grow membership and engagement across the society.</li>
+          <li>Organised and ran cultural events and networking opportunities for members.</li>
+        </ul>
+      </div>
+
+      <div class="log-item">
+        <span class="log-date mono">Feb 2023 — Present</span>
+        <h3 class="log-role">Aerospace Engineering Student Representative</h3>
+        <p class="log-org">University of Sheffield</p>
+        <ul>
+          <li>Engaged with prospective students and parents, promoting a welcoming, informative experience of the university.</li>
+          <li>Delivered presentations on and off campus on the strengths of the Aerospace Engineering programme.</li>
+        </ul>
+      </div>
+
+      <div class="log-item">
+        <span class="log-date mono">Oct 2022 — Jan 2024</span>
+        <h3 class="log-role">Structural Engineer</h3>
+        <p class="log-org">Project Falcon</p>
+        <ul>
+          <li>Developed the fuselage and landing gear of a UAV drone, addressing weight optimisation and structural integrity.</li>
+          <li>Applied advanced materials and engineering principles to improve durability and performance.</li>
+        </ul>
+      </div>
+
+      <div class="log-item">
+        <span class="log-date mono">Sep 2022 — Jan 2024</span>
+        <h3 class="log-role">Treasurer, Societies Committee</h3>
+        <p class="log-org">Sheffield Students' Union</p>
+        <ul>
+          <li>Managed society finances totalling over £35,000, ensuring budget adherence and overseeing transactions.</li>
+          <li>Built strong organisational skills and attention to detail across multiple concurrent accounts.</li>
+        </ul>
+      </div>
+
+      <div class="log-item">
+        <span class="log-date mono">Oct 2022 — Jun 2023</span>
+        <h3 class="log-role">Design Team Member</h3>
+        <p class="log-org">UKSEDS — UK Students for the Exploration and Development of Space</p>
+        <ul>
+          <li>Designed the fuselage and landing gear of a UAV drone, improving design efficiency by 15%.</li>
+          <li>Ran computational simulations to verify durability and performance across flight conditions.</li>
+        </ul>
+      </div>
+
+      <div class="log-item">
+        <span class="log-date mono">Sep 2022 — Jun 2023</span>
+        <h3 class="log-role">Sports Officer</h3>
+        <p class="log-org">Pakistani Society, Sheffield Students' Union</p>
+        <ul>
+          <li>Developed and ran sports programmes, tournaments and events, managing budgets throughout.</li>
+        </ul>
+      </div>
+
+      <div class="log-item">
+        <span class="log-date mono">Feb 2022 — Jun 2023</span>
+        <h3 class="log-role">Steward</h3>
+        <p class="log-org">Sierra1 Security Stewarding</p>
+        <ul>
+          <li>Worked effectively under pressure during peak times, keeping event operations running smoothly.</li>
+          <li>Prioritised and managed multiple guest requests at once while maintaining high service standards.</li>
+        </ul>
+      </div>
+
+      <div class="log-item">
+        <span class="log-date mono">Jun 2021 — Jul 2021</span>
+        <h3 class="log-role">Summer Intern</h3>
+        <p class="log-org">Civil Aviation Authority</p>
+        <ul>
+          <li>Applied foundational aircraft knowledge, gaining insight into maintenance and problem diagnosis.</li>
+          <li>Developed an understanding of operational safety in an aviation regulatory setting.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="placement">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num mono">03</span><h2 class="sec-title">Placement</h2><span class="sec-line"></span></div>
+
+    <div class="pl-top">
+      <p>
+        I spent my Year in Industry as a Systems Engineer at National Highways, within the Intelligent
+        Transport Systems (ITS) and Mobility team. The role covered incident detection systems, airspace
+        standards for drone operations, and stakeholder engagement across the Strategic Road Network —
+        applying systems engineering principles and analytical skills from my degree to real, safety-critical
+        infrastructure.
+      </p>
+      <ul class="pl-facts">
+        <li><span>Company</span><span>National Highways</span></li>
+        <li><span>Role</span><span>Systems Engineer</span></li>
+        <li><span>Team</span><span>ITS &amp; Mobility, SES Directorate</span></li>
+        <li><span>Location</span><span>Temple Point, Bristol</span></li>
+        <li><span>Duration</span><span>Jun 2025 — Jun 2026</span></li>
+      </ul>
+    </div>
+
+    <div class="case-study">
+      <div class="cs-tag mono">technical case study</div>
+      <h3>Bromford Viaduct — incident detection</h3>
+      <p>
+        Led an independent technical investigation into improving incident detection capability at Bromford
+        Viaduct on the M6 (Junctions 5–6), a strategically important but heavily constrained section of
+        motorway flagged in National Highways' Smart Motorway Safety Evidence Stocktake and Action Plan.
+      </p>
+      <ul>
+        <li>Assessed incident detection technologies — AI video analytics, edge-processing cameras, Floating Vehicle Data, radar, and data fusion platforms — against operational effectiveness, integration requirements and long-term maintainability.</li>
+        <li>Built structured comparative evaluation tables in Excel to support engineering judgement where quantitative performance data was limited.</li>
+        <li>Concluded that no single technology could solve the problem alone, and recommended a layered approach combining infrastructure-based detection, AI-assisted monitoring and data-driven traffic intelligence.</li>
+        <li>Delivered a refined shortlist of operationally and technically viable technologies, balancing performance against cost, deployment feasibility and disruption.</li>
+      </ul>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <span class="stat-num mono">200</span>
+        <p class="stat-label">Engineering Away Day</p>
+        <p class="stat-desc">Helped coordinate input from teams across the Engineering Division for an event attended by ~200 colleagues.</p>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num mono">94</span>
+        <p class="stat-label">Great British Spring Clean</p>
+        <p class="stat-desc">Coordinated stakeholders across regions, resulting in 94 volunteers collecting 31 bags of litter.</p>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num mono">ETN</span>
+        <p class="stat-label">Early Talent Network</p>
+        <p class="stat-desc">Represented Year-in-Industry placements on the Early Talent Committee and CEO Challenge, chairing regional updates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num mono"></span><h2 class="sec-title">Projects</h2><span class="sec-line"></span></div>
+    <p class="lede">Engineering projects from coursework, societies and competitions — mostly centred on UAV structures and design-build-test work.</p>
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <div class="proj-head"><h3>Project Falcon</h3><span class="pdate mono">Oct 2022 – Jan 2024</span></div>
+        <p class="proj-org">Independent structural design project</p>
+        <ul>
+          <li>Designed the fuselage and landing gear for a UAV, balancing weight against structural integrity.</li>
+          <li>Selected materials and design approaches to maximise durability and flight performance.</li>
+        </ul>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-head"><h3>UKSEDS Design Team</h3><span class="pdate mono">Oct 2022 – Jun 2023</span></div>
+        <p class="proj-org">UK Students for the Exploration and Development of Space</p>
+        <ul>
+          <li>Designed UAV fuselage and landing gear, lifting design efficiency by 15% through material choices.</li>
+          <li>Verified performance under varying flight conditions using computational simulation.</li>
+        </ul>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-head"><h3>Round-the-Pole Flyer</h3><span class="pdate mono">May 2023</span></div>
+        <p class="proj-org">Design and build competition project</p>
+        <ul>
+          <li>Diagnosed and resolved part misalignment and structural weaknesses during the build.</li>
+          <li>Improved structural stability by 10% and led final assembly and testing against competition rules.</li>
+        </ul>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-head"><h3>Global Engineering Challenge</h3><span class="pdate mono">Jan 2023</span></div>
+        <p class="proj-org">University of Sheffield</p>
+        <ul>
+          <li>Worked in a cross-disciplinary team to build a flood risk management plan for Govan.</li>
+          <li>Presented research and risk assessment findings to a panel of academics and industry professionals.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num mono">03</span><h2 class="sec-title">Skills</h2><span class="sec-line"></span></div>
+    <div class="skill-grid">
+      <div class="skill-group">
+        <h3>design software</h3>
+        <div class="tag-row"><span class="tag">Fusion 360</span><span class="tag">AutoCAD</span><span class="tag">SolidWorks</span></div>
+      </div>
+      <div class="skill-group">
+        <h3>manufacturing</h3>
+        <div class="tag-row"><span class="tag">3D Printing</span><span class="tag">Laser Cutting</span><span class="tag">Water Jetting</span><span class="tag">Woodwork</span></div>
+      </div>
+      <div class="skill-group">
+        <h3>programming</h3>
+        <div class="tag-row"><span class="tag">MATLAB</span><span class="tag">Python</span><span class="tag">C / C++</span></div>
+      </div>
+      <div class="skill-group">
+        <h3>project management</h3>
+        <div class="tag-row"><span class="tag">Adobe Workfront</span><span class="tag">Smartsheet</span><span class="tag">MS Project</span></div>
+      </div>
+      <div class="skill-group">
+        <h3>office</h3>
+        <div class="tag-row"><span class="tag">Word</span><span class="tag">Excel</span><span class="tag">PowerPoint</span></div>
+      </div>
+      <div class="skill-group">
+        <h3>languages</h3>
+        <div class="tag-row"><span class="tag">English</span><span class="tag">Urdu</span><span class="tag">French</span><span class="tag">Spanish (learning)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num mono">04</span><h2 class="sec-title">Education</h2><span class="sec-line"></span></div>
+
+    <div class="edu-item">
+      <div class="edu-top"><h3>BEng Aerospace Engineering</h3><span class="edu-date mono">Sep 2022 — Jun 2026</span></div>
+      <p class="deg">University of Sheffield</p>
+      <ul>
+        <li>Awarded a 15% scholarship for achieving excellent grades in the Foundation Year.</li>
+        <li>Modules: Aerodynamics &amp; Thermodynamics, Engineering Design Build and Test, Aerospace Materials, Analysis and Modelling of Systems, Electrical Fundamentals, Electrical Energy, Aerodynamics and Heat Transfer.</li>
+        <li>Key project: built a computational fluid dynamics model that optimised drag reduction by 12%.</li>
+      </ul>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-top"><h3>Foundation Science &amp; Engineering</h3><span class="edu-date mono">Sep 2021 — Jun 2022</span></div>
+      <p class="deg">University of Sheffield</p>
+      <ul>
+        <li>Elected student representative for the Academic Management Board, supporting the transition from Foundation year to Bachelors.</li>
+        <li>Modules: Maths (82%), Physics (79%), English (76%).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num mono"></span><h2 class="sec-title">Interests</h2><span class="sec-line"></span></div>
+    <div class="interest-row">
+      <span>Formula 1</span>
+      <span>Travelling</span>
+      <span>Cooking</span>
+      <span>Football</span>
+      <span>Learning languages</span>
+      <span>Photography</span>
+    </div>
+  </div>
+</section>
+
+<footer class="frame" id="contact">
+  <span class="fc-tl"></span><span class="fc-br"></span>
+  <div class="wrap tb-top">
+    <h2>Let's talk.</h2>
+    <p>Open to placements, internships and graduate opportunities in structures, design and UAV engineering.</p>
+    <div class="hero-links">
+      <a class="btn solid" href="mailto:yshaikh1@sheffield.ac.uk">yshaikh1@sheffield.ac.uk</a>
+      <a class="btn" href="https://www.linkedin.com/in/yaseen-manzoor-shaikh/" target="_blank" rel="noopener">LinkedIn profile</a>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="titleblock">
+      <div class="tb-cell"><div class="tb-label mono">name</div><div class="tb-value">Yaseen Manzoor Shaikh</div></div>
+      <div class="tb-cell"><div class="tb-label mono">role</div><div class="tb-value">Aerospace Eng. Student</div></div>
+      <div class="tb-cell"><div class="tb-label mono">location</div><div class="tb-value">Sheffield, UK</div></div>
+      <div class="tb-cell"><div class="tb-label mono">phone</div><div class="tb-value">+44 7470 243129</div></div>
+      <div class="tb-cell"><div class="tb-label mono">email</div><div class="tb-value"><a href="mailto:yshaikh1@sheffield.ac.uk">yshaikh1@sheffield.ac.uk</a></div></div>
+      <div class="tb-cell"><div class="tb-label mono">linkedin</div><div class="tb-value"><a href="https://www.linkedin.com/in/yaseen-manzoor-shaikh/" target="_blank" rel="noopener">/in/yaseen-manzoor-shaikh</a></div></div>
+      <div class="tb-cell"><div class="tb-label mono">university</div><div class="tb-value">Sheffield</div></div>
+      <div class="tb-cell"><div class="tb-label mono">graduating</div><div class="tb-value">2026</div></div>
+    </div>
+  </div>
+  <div class="bottombar">rev. 2026 — built for job applications</div>
+</footer>
+
+</body>
+</html>
